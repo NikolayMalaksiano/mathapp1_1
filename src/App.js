@@ -23,7 +23,7 @@ function App() {
   }
 
   useEffect(()=>{
-    chooseFormula(inputValue.split(','))
+    chooseFormula(inputValue.split(',').filter(i => i !== '-' & i !== '').map(i => +i))
   }, [selectValue, inputValue])
 
   return (
