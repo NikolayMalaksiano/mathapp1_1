@@ -25,7 +25,7 @@ function App() {
         );
     }
   }
-
+ 
   useEffect(() => {
     chooseFormula(inputValue.split(',').map(Number))
   }, [selectValue, inputValue])
