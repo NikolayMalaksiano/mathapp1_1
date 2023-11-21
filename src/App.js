@@ -74,6 +74,7 @@ function App() {
                   {sortedArray.map((number, index) => (
                     <td key={index}>{number}</td>
                  
+                    
                 ))}
                 </tr>
               </tbody>
