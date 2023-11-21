@@ -38,3 +38,18 @@
   border-radius: 10px;
   max-width: 90%;
 }
+
+.numberContainer {
+  overflow-x: auto;
+  white-space: nowrap; 
+  max-width: 100%;
+}
+
+.numberContainer table {
+  width: auto;
+}
+
+.numberContainer td {
+  padding: 5px;
+  background-color: lightgray;
+}
