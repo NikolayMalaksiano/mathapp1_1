@@ -19,9 +19,9 @@ function App() {
         return (
           setAnswer(Math.min(...data))
         );
-      case 'midValue':
+      case 'sumValue':
         return (
-          setAnswer(data.reduce((sum, next) => sum + next, 0) / data.length)
+          setAnswer(data.reduce((sum, next) => sum + next, 0))
         );
     }
   }
@@ -48,7 +48,7 @@ function App() {
           >
             <option value="maxValue">Максимальне значення</option>
             <option value="minValue">Мінімальне значення</option>
-            <option value="midValue">Середнє арифметичне</option>
+            <option value="sumValue">Середнє арифметичне</option>
           </select>
         </div>
         <div>
