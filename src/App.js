@@ -8,21 +8,34 @@ function App() {
   const [answer, setAnswer] = useState('');
   const [inputValue, setInputValue] = useState('')
 
-  const chooseFormula = ( data ) => {
+  const calculateGeometricMean = (data) => {
+    if (data.length === 0) {
+      return NaN;
+    }
 
+    const product = data.reduce((accumulator, currentValue) => accumulator * parseFloat(currentValue), 1);
+    const geometricMean = Math.pow(product, 1 / data.length);
+
+    return geometricMean;
+  }
+
+  const chooseFormula = (data) => {
     switch (selectValue) {
       case 'maxValue':
-        return(
-          setAnswer(Math.max(...data))
-        );
+        setAnswer(Math.max(...data));
+        break;
       case 'minValue': 
-        return(
-          setAnswer(Math.min(...data))
-        );
+        setAnswer(Math.min(...data));
+        break;
+      case 'geometricMean':
+        setAnswer(calculateGeometricMean(data));
+        break;
+      default:
+        break;
     }    
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     chooseFormula(inputValue.split(','))
   }, [selectValue, inputValue])
 
@@ -32,7 +45,7 @@ function App() {
         <div>
           <input
             value={inputValue}
-            onChange={(event) => setInputValue(event.target.value.replace(/[^0-9,-]/g, ''))}
+            onChange={(event) => setInputValue(event.target.value.replace(/[^0-9,-.]/g, ''))}
             placeholder={'Введіть дані'}
           />
           <select 
@@ -44,6 +57,7 @@ function App() {
           >
             <option value="maxValue">Максимальне значення</option>
             <option value="minValue">Мінімальне значення</option>
+            <option value="geometricMean">Середнє геометричне</option>
           </select>
         </div>  
         <div>
