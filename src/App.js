@@ -7,6 +7,7 @@ function App() {
   const [selectValue, setSelectValue] = useState('maxValue');
   const [answer, setAnswer] = useState('');
   const [inputValue, setInputValue] = useState('')
+  const [sortedArray, setSortedArray] = useState([]);
 
   const calculateGeometricMean = (data) => {
     if (data.length === 0) {
@@ -35,9 +36,24 @@ function App() {
     }    
   }
 
-  useEffect(() => {
-    chooseFormula(inputValue.split(','))
+  const sortAndDisplay = () => {
+    const sortedData = inputValue
+      .split(/[\s,]+/)
+      .filter((i) => i !== '-' && i !== '')
+      .map((i) => +i)
+      .sort((a, b) => (selectValue === 'asc' ? a - b : b - a));
+
+    setSortedArray(sortedData);
+  };
+
+
+  useEffect(()=>{
+    chooseFormula(inputValue.split(',').filter((i) => i !== '-' && i !== '').map((i) => +i))
   }, [selectValue, inputValue])
+
+  useEffect(() => {
+    sortAndDisplay();
+  }, [selectValue])
 
   return (
     <div className="mainContainer">
@@ -57,13 +73,32 @@ function App() {
           >
             <option value="maxValue">Максимальне значення</option>
             <option value="minValue">Мінімальне значення</option>
+            <option value="asc">Сортування за зростанням</option>
+            <option value="desc">Сортування за спаданням</option>
             <option value="geometricMean">Середнє геометричне</option>
           </select>
         </div>  
-        <div>
+        
+
+        <div className="numberContainer">
+          {selectValue === 'asc' || selectValue === 'desc' ? (
+            <table>
+              <tbody>
+                <tr>
+                  {sortedArray.map((number, index) => (
+                    <td key={index}>{number}</td>
+                 
+                    
+                ))}
+                </tr>
+              </tbody>
+            </table>
+          ) : (
+
           <span>
             {answer}
           </span>
+          )}
         </div>
       </div>
     </div>
